@@ -1,44 +1,44 @@
 #include <bits/stdc++.h>
+#include <locale.h>
+
+#define INF 100000
+
 using namespace std;
 
-#define INF 10010
+int mark [INF]= {};
 
-int mark[INF] = {}, operacoes; 
-
-int BFS (int origem, int destino){ // a BFS apenas usará o vértice de origem e o de destino
-  
-  queue <int> fila; 
-
-  int aux;
-  
-  mark[origem] = 1;
-  fila.push(origem);
-  
-  while(!fila.empty()){ 
-    aux = fila.front(); 
-    fila.pop(); 
+int BFS(int orig, int destino){
+  mark[orig] = 1;
+  queue<int> fila;
+  fila.push(orig);
+  while (!fila.empty()){
+    int aux;
+    aux = fila.front();
+    fila.pop();
     
-    if(mark[aux+1] == 0){ 
+    if (mark[aux+1]==0){
+      fila.push(aux+1);
       mark[aux+1] = mark[aux]+1;
-      fila.push(aux+1); 
-      
-      if(aux+1 == destino)
-        return operacoes = mark[aux+1];
+      if (aux+1 == destino)
+        return mark[aux+1];
+    }
+    if (mark[aux*2]==0){
+      fila.push(aux*2);
+      mark[aux*2] = mark[aux]+1;
+      if(aux*2==destino)
+        return mark[aux*2];
+    }
   }
-  }
-  
   return 0;
-  }
+}
 
-int main (){
+int main() {
+  int orig, destino;
+  setlocale(LC_ALL, "portuguese");
   
-  int origem, destino;
-  
-  cin >> origem >> destino;
-  
-  cout << BFS(origem, destino)-1 << endl; 
-  
-  memset(mark, 0, sizeof mark); 
-  
+  scanf("%d %d", &orig, &destino);
+  printf("Quantidade de operações necessárias para se obter a conversão do número: %d\n", BFS(orig, destino)-1); 
+  //subtraimos um pois a contagem inicial já começa contando uma operação, o que não é necessário na hora de imprimir, mas é para o funcionamento do algoritmo, já que o nosso vetor de marcação utiliza o 0 como algo não visitado ainda
+  //se houver uma operação de subtrair, a BFS poderia voltar para o ponto de origem, e isso ia ferrar o algoritmo
   return 0;
 }
