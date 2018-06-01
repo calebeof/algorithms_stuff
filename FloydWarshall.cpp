@@ -11,7 +11,7 @@ void floydWarshall(int vertices, int dist[][TAM]){
   for (int i=1; i<=vertices; i++)
     for (int j=1; j<=vertices; j++)
        dist[i][j] = grafo[i][j];
-   for (int k = 1; k <= r; k++)
+   for (int k = 1; k <= vertices; k++)
      for (int i = 1; i <= vertices; i++)
        for (int j = 1; j <= vertices; j++){
            if (dist[i][k] + dist[k][j] < dist[i][j])
