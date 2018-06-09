@@ -51,7 +51,7 @@ int main(){
       if (union_find(from, to))
         printf("S\n");
       else
-      printf("N\n");
+        printf("N\n");
     }
     k++;
     niveis.clear();
