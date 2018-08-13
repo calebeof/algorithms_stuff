@@ -7,20 +7,13 @@ using namespace std;
  
 int grafo[TAM][TAM];
  
-void floydWarshall(int vertices, int dist[][TAM]){
-  for (int i=1; i<=vertices; i++)
-    for (int j=1; j<=vertices; j++)
-       dist[i][j] = grafo[i][j];
+void floydWarshall(int vertices){
    for (int k = 1; k <= vertices; k++)
      for (int i = 1; i <= vertices; i++)
        for (int j = 1; j <= vertices; j++){
-           if (dist[i][k] + dist[k][j] < dist[i][j])
-             dist[i][j] = dist[i][k] + dist[k][j];
+           if (grafo[i][k] + grafo[k][j] < grafo[i][j])
+             grafo[i][j] = grafo[i][k] + grafo[k][j];
        }
-  /*for (int i=1; i<=vertices; i++)
-    for (int j=1; j<=vertices; j++)
-      printf("%d -> %d = %d\n", i, j, dist[i][j]);
-  */
 }
  
 int main() {
@@ -37,13 +30,12 @@ int main() {
     }
     int consultas;
     cin >> consultas;
-    int dist [TAM][TAM];
-    floydWarshall(vertices, dist);
+    floydWarshall(vertices);
     for (int i=0; i<consultas; i++){
       int from, to;
       cin >> from >> to;
-      if (dist[from][to]!=INF)
-        printf("%d\n", dist[from][to]);
+      if (grafo[from][to]!=INF)
+        printf("%d\n", grafo[from][to]);
       else
         printf("-1\n");
     }
