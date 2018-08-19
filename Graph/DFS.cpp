@@ -4,7 +4,7 @@
 
 using namespace std;
 
-bool mark [INF] = {};
+bool mark [INF];
 
 vector <int> aux;
 vector <vector <int> > grafo (INF, aux);
