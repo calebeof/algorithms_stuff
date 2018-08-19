@@ -10,6 +10,7 @@ vector <int> aux;
 vector <vector <int> > grafo (INF, aux);
 
 void DFS (int inicio){
+    cout << inicio << "\n";
 
     mark[inicio] = true;
     for (int i=0; i<grafo[inicio].size(); i++){
