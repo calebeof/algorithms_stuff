@@ -45,10 +45,8 @@ int DIJKSTRA (int origem, int destino, vector<vector<pair<int, int> > > &adj)
 		{
 			if (dist[adj[v][i].first] > d + adj[v][i].second) 
 			{
-				if (dist[adj[v][i].first] != INF)
-				S.erase(S.find(make_pair(dist[adj[v][i].first], adj[v][i].first))); 
-			dist[adj[v][i].first] = d + adj[v][i].second; 
-			S.insert(make_pair(dist[adj[v][i].first], adj[v][i].first)); //
+				dist[adj[v][i].first] = d + adj[v][i].second; 
+				S.insert(make_pair(dist[adj[v][i].first], adj[v][i].first)); //
 			}
 		}
 	}
