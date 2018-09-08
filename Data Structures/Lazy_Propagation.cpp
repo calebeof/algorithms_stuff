@@ -52,7 +52,7 @@ void updateValue(int arr[], vector<int>&SegmentTree, int n, int indice, int valo
 int getSumUtil(vector<int> &SegmentTree, vector<int> &LazyTree, int indice_min, int indice_max, int esquerda, int direita, int indice_atual){
 
   if(LazyTree[indice_atual]!=0){ //se ainda não atualizei
-    SegmentTree[indice_atual]+=(indice_max-indice_min-1)*LazyTree[indice_atual];
+    SegmentTree[indice_atual]+=(indice_max-indice_min+1)*LazyTree[indice_atual];
     if(indice_max!=indice_min){
       LazyTree[(2*indice_atual)+1]+=LazyTree[indice_atual];
       LazyTree[(2*indice_atual)+2]+=LazyTree[indice_atual];
