@@ -13,12 +13,13 @@ void update_min(int v, int tl, int tr, int pos, int new_val){
   if(tl == tr)
     tree_min[v] = new_val;
   else{
-    int tm = (tl+tr)/2;
+    int tm = (tl+tr)>>1;
+    int new_v = v<<1;
     if(pos<=tm)
-      update_min(v*2, tl, tm, pos, new_val);
+      update_min(new_v, tl, tm, pos, new_val);
     else
-      update_min(v*2 + 1, tm+1, tr, pos, new_val);
-    tree_min[v] = min(tree_min[v*2],tree_min[v*2 + 1]);
+      update_min(new_v + 1, tm+1, tr, pos, new_val);
+    tree_min[v] = min(tree_min[new_v],tree_min[new_v + 1]);
   }
 }
 
@@ -26,12 +27,13 @@ void update_max(int v, int tl, int tr, int pos, int new_val){
   if(tl == tr)
     tree_max[v] = new_val;
   else{
-    int tm = (tl+tr)/2;
+    int tm = (tl+tr)>>1;
+    int new_v = v<<1;
     if(pos<=tm)
-      update_max(v*2, tl, tm, pos, new_val);
+      update_max(new_v, tl, tm, pos, new_val);
     else
-      update_max(v*2 + 1, tm+1, tr, pos, new_val);
-    tree_max[v] = max(tree_max[v*2], tree_max[v*2 + 1]);
+      update_max(new_v + 1, tm+1, tr, pos, new_val);
+    tree_max[v] = max(tree_max[new_v], tree_max[new_v + 1]);
   }
 }
 
@@ -39,10 +41,11 @@ void build_min(vi &arr, int v, int tl, int tr){
   if(tl==tr)
     tree_min[v] = arr[tl];
   else{
-    int tm = (tl+tr)/2;
-    build_min(arr, v*2, tl, tm);
-    build_min(arr, v*2 + 1, tm+1, tr);
-    tree_min[v] = min(tree_min[v*2],tree_min[v*2 + 1]);
+    int tm = (tl+tr)>>1;
+    int new_v = v<<1;
+    build_min(arr, new_v, tl, tm);
+    build_min(arr, new_v + 1, tm+1, tr);
+    tree_min[v] = min(tree_min[new_v],tree_min[new_v + 1]);
   }
 }
 
@@ -50,10 +53,11 @@ void build_max(vi &arr, int v, int tl, int tr){
   if(tl==tr)
     tree_max[v] = arr[tl];
   else{
-    int tm = (tl+tr)/2;
-    build_max(arr, v*2, tl, tm);
-    build_max(arr, v*2 + 1, tm+1, tr);
-    tree_max[v] = max(tree_max[v*2], tree_max[v*2 + 1]);
+    int tm = (tl+tr)>>1;
+    int new_v = v<<1;
+    build_max(arr, new_v, tl, tm);
+    build_max(arr, new_v + 1, tm+1, tr);
+    tree_max[v] = max(tree_max[new_v], tree_max[new_v + 1]);
   }
 }
 
@@ -62,8 +66,9 @@ int get_max(int v, int tl, int tr, int l, int r){
     return -INF;
   if(l== tl && r == tr)
     return tree_max[v];
-  int tm = (tl+tr)/2;
-  return max(get_max(v*2, tl, tm, l, min(r,tm)), get_max(v*2 + 1, tm+1, tr, max(l, tm+1), r));
+  int tm = (tl+tr)>>1;
+  int new_v = v<<1;
+  return max(get_max(new_v, tl, tm, l, min(r,tm)), get_max(new_v + 1, tm+1, tr, max(l, tm+1), r));
 }
 
 int get_min(int v, int tl, int tr, int l, int r){
@@ -71,8 +76,9 @@ int get_min(int v, int tl, int tr, int l, int r){
     return INF;
   if(l == tl && r == tr)
     return tree_min[v];
-  int tm = (tl+tr)/2;
-  return min(get_min(v*2, tl, tm, l, min(r,tm)),get_min(v*2 + 1, tm +1, tr, max(l, tm+1), r));
+  int tm = (tl+tr)>>1;
+  int new_v = v<<1;
+  return min(get_min(new_v, tl, tm, l, min(r,tm)),get_min(new_v + 1, tm +1, tr, max(l, tm+1), r));
 }
 
 int main() {
@@ -100,7 +106,7 @@ int main() {
       }
       else{
         c--;
-        cout << get_max(1, 0, n-1, b, c) << " " << get_min(1, 0, n-1, b, c) << endl;
+        cout << get_max(1, 0, n-1, b, c) - get_min(1, 0, n-1, b, c) << endl;
       }
     }
   }
