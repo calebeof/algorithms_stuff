@@ -13,18 +13,19 @@
 
 using namespace std;
 
-double memo[TAM][1<<TAM];
+double memo[TAM][1<<TAM]; //1 << TAM means all of the vertices that we will have to visit
+
 double tsp(vvid &graph, int s, int bitmask,int n){
-  if(__builtin_popcount(bitmask)==n)
+  if(__builtin_popcount(bitmask)==n) //if all are visited
     return graph[s][0].s;
-  if(memo[s][bitmask]!=-1)
+  if(memo[s][bitmask]!=-1) //if already was visited
     return memo[s][bitmask];
   double dist = INF;
   for(int i=0; i<n; i++){
-    if(!(bitmask & (1<<i)))
-      dist = min(dist, graph[s][i].s + tsp(graph, i, bitmask | (1 << i), n));
+    if(!(bitmask & (1<<i))) //if not visited
+      dist = min(dist, graph[s][i].s + tsp(graph, i, bitmask | (1 << i), n)); //send bitmask updated with visited
   }
-  return memo[s][bitmask] = dist;
+  return memo[s][bitmask] = dist; //return the value of the distance in that moment
 }
 
 void generate_edges(vii &points, vvid &graph, int n){
