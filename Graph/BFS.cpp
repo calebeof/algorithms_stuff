@@ -1,43 +1,21 @@
-#include <bits/stdc++.h>
+vector<vector<int> > graph;
+const int INF = int(1e9);
 
-#define TAM 100000
+void BFS(int origin){
+    vector<int> dist(graph.size(), INF);
+    queue<int> q;
+    
+    q.push(origin);
+    dist[origin] = 0;
 
-using namespace std;
+    while(!q.empty()){
+        int vertex = q.front();
+        q.pop();
 
-bool mark [TAM];
-
-vector<vector<int> > grafo(TAM);
-
-void BFS(int orig){
-  mark[orig] = true;
-  queue<int> fila;
-  fila.push(orig);
-  cout << "origem: " <<orig << "\n";
-  while (!fila.empty()){
-    int aux;
-    aux = fila.front();
-    fila.pop();
-    for (int i=0; i<grafo[aux].size(); i++)
-      if(!mark[grafo[aux][i]]){
-        mark[grafo[aux][i]] = true;
-        cout << grafo[aux][i] << "\n";
-        fila.push(grafo[aux][i]);
-      }
-  }
-}
-
-int main() {
-  int vertices, arestas;
-
-  while(cin >> vertices >> arestas && arestas!=0 && vertices!=0){
-    for (int i=0; i<arestas; i++){
-      int from, to;
-      cin >> from >> to;
-      grafo[from].push_back(to);
+        for(int i : graph[vertex])
+            if(dist[i]>dist[vertex]+1){
+                dist[i] = dist[vertex]+1;
+                q.push(i);
+            }
     }
-    for(int i=0;i<vertices; i++)
-      if(!mark[i])
-        BFS(i);
-    }
-  return 0;
 }
