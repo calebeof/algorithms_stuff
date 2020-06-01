@@ -1,48 +1,10 @@
-#include <bits/stdc++.h>
+vector<vector<int> > graph;
+vector<bool> mark(graph.size(), false);
 
-#define INF 100000
+void DFS(int vertex){
+    mark[vertex] = 1;
 
-using namespace std;
-
-bool mark [INF];
-
-vector <int> aux;
-vector <vector <int> > grafo (INF, aux);
-
-void DFS (int inicio){
-    cout << inicio << "\n";
-
-    mark[inicio] = true;
-    for (int i=0; i<grafo[inicio].size(); i++){
-        int aresta = grafo[inicio][i];
-        if (!mark[aresta])
-            DFS (aresta);
-    }
-}
-
-int main () {
-    int vertices, arestas;
-
-    cin >> vertices >> arestas;
-
-    while (vertices!=0 && arestas!=0){
-        int cont=0;
-        for (int i=0; i<arestas; i++){
-            int v, a;
-            cin >> v >> a;
-            grafo [v].push_back(a);
-        }
-        for (int i=1; i<=vertices; i++){
-            if (!mark[i]){
-                cont++;
-                DFS(i);
-            }
-        }
-    for (int i=1; i<=vertices;i++){
-        mark[i]=0;
-        grafo[i].clear();
-    }
-    cin >> vertices >> arestas;
-    }
-    return 0;
+    for(int i : graph[vertex])
+        if(!mark[i])
+            DFS(i);
 }
