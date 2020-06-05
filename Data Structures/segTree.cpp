@@ -36,7 +36,7 @@ void build(int node, int l, int r){
 		return;
 
 	if(l==r){
-		segTree[node] = vetor[l];
+		segTree[node] = arr[l];
 		return;
 	}
 
