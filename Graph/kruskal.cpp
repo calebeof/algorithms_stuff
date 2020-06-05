@@ -45,7 +45,7 @@ int kruskal(vector<Edge> edges){
         int w = edge.weight;
 
         if(!unionFind(v1, v2)){
-            sum+=weight;
+            sum+=w;
             Union(v1, v2);
         }
     }
