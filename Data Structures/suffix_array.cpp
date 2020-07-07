@@ -35,7 +35,7 @@ vector<int> suffix_array(string str){
         vector<pair<pair<int, int>, int> > b(n); //(left, right) -> position
         
         for(int i=0; i<n; i++)
-            b[i] = mp(mp(c[i], c[(i + (1<<k) % n)]), i);
+            b[i] = mp(mp(c[i], c[(i + (1<<k)) % n]), i);
 
         sort(b.begin(), b.end());
 
@@ -52,8 +52,7 @@ vector<int> suffix_array(string str){
     }
 
     for(int i=0; i<n; i++)
-        cout << p[i] << " " << str.substr(p[i], n-p[i]) << endl; //suffix array number and suffix array value
-    
+       cout << p[i] << " " << str.substr(p[i], n-p[i]) << endl; //suffix array number and suffix array value
 
     return p; //return suffix array
 }
