@@ -8,7 +8,7 @@ int Dijkstra (int origin, int destiny)
 	set<pair<int, int> > s; 
 	s.insert(make_pair(0, origin));
 	
-	while(!S.empty())
+	while(!s.empty())
 	{
 		pair<int, int> f = *s.begin();
 		int distance = f.first, vertex = f.second; 
